@@ -73,3 +73,26 @@ select bookname from book where price > 7000 and price <= 10000;
 축구의 역사 2
 축구의 역사 3
 []%
+
+마당서점 테이블 연습문제
+3. 박지성의 총 구매액
+select sum(saleprice) AS '총 구매액'
+    -> from Customer, Orders
+    -> Where Customer.custid = 0rders.custid AND Customer.name = '박지성';
+
+4. 박지성이 구매한 출판사 수
+select count(distinct publisher) as '출판사 수'
+ -> from customer, orders, book
+ -> where customer.custid=orders.custid and orders.bookid=book.bookid
+ -> and customer.name = '박지성';
+
+5. 박지성이 구매한 도서의 이름, 가격, 정가와 판매가격의 차이
+select bookname, price, price-saleprice
+ -> from customer, orders, book
+ -> where customer.custid=orders.custid and orders.bookid=book.bookid
+ -> and customer.name = '박지성';
+
+6. 박지성이 구매하지 않은 도서의 이름
+select bookname from book
+ -> where not exists
+ -> (select bookname from customer, orders)
