@@ -108,6 +108,11 @@ select bookname from book
  SELECT COUNT(publisher)
     -> FROM book;
 
+#정답
+
+SELECT COUNT(DISTINCT publisher) FROM book;
+
+
 3 - 모든 고객의 이름, 주소
  SELECT name, address
     -> FROM Customer;
@@ -116,6 +121,10 @@ select bookname from book
 SELECT bookid
     -> FROM Orders
     -> WHERE orderdate between date('2014-07-04') and date('2014-07-07')+1;
+
+# 정답
+SELECT Orderid FROM Orders
+    -> WHERE orderdate BETWEEN '20140704' AND '20140707';
 
 5 - 14.07.04~07.07 사이에 주문받은 도서를 제외한 도서의 주문번호
  SELECT bookid
