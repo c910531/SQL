@@ -97,6 +97,7 @@ select bookname from book
  -> where not exists
  -> (select bookname from customer, orders)
 
+테이블확인하기 -> desc newbook;
 =====================================
 06. 07
 2번문제
