@@ -1,0 +1,63 @@
+06.08
+
+load data infile 'C:/Program Files/MySQL/MySQL Server 8.0/Uploads/test.csv'
+into table csv_test
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows;
+
+ source C:\ProgramData\MySQL\MySQL Server 8.0/mysqlsampledatabase.sql (파일 불러오기)
+
+load data infile 'C:/Program Files/MySQL/MySQL Server 8.0/Uploads/test.csv'
+into table csv_test
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+ignore 1 rows;
+
+ select a.orderdate,
+    -> priceeach*quantityordered
+    -> from classicmodels.orders a
+    -> left
+    -> join classicmodels.orderdetails b
+    -> on a.ordernumber = b.ordernumber
+    -> ;
+
+ SELECT A.ORDERDATE, SUM(PRICEEACH*QUANTITYORDERED) AS SALES
+    -> FROM CLASSICMODELS.ORDERS A
+    -> LEFT
+    -> JOIN CLASSICMODELS.ORDERDETAILS B
+    -> ON A.ORDERNUMBER = B.ORDERNUMBER
+    -> GROUP BY 1;
+
+# 월별로 추출
+SELECT SUBSTR(A.ORDERDATE,1,7) MM,
+    -> SUM(PRICEEACH*QUANTITYORDERED) AS SALES
+    -> FROM CLASSICMODELS.ORDERS A
+    -> LEFT
+    -> JOIN CLASSICMODELS.ORDERDETAILS B
+    -> ON A.ORDERNUMBER = B.ORDERNUMBER
+    -> GROUP BY 1;
+
+# 연별로 추출
+ SELECT SUBSTR(A.ORDERDATE,1,4) YY,
+    -> SUM(PRICEEACH*QUANTITYORDERED) AS SALES
+    -> FROM CLASSICMODELS.ORDERS A
+    -> LEFT
+    -> JOIN CLASSICMODELS.ORDERDETAILS B
+    -> ON A.ORDERNUMBER = B.ORDERNUMBER
+    -> GROUP BY 1;
+
+# 중복값 있는
+SELECT ORDERDATE, CUSTOMERNUMBER, ORDERNUMBER
+    -> FROM CLASSICMODELS.ORDERS;
+
+# 중복값 없는
+SELECT COUNT(ORDERNUMBER) N_ORDERS, COUNT(DISTINCT ORDERNUMBER) N_ORDERS_DISTINCT
+FROM CLASSICMODELS.ORDERS;
+
+# 중복값 제외 고객 정보(구매자 수) 추출
+SELECT ORDERDATE, COUNT(DISTINCT CUSTOMERNUMBER) N_PURCHASER, COUNT(ORDERNUMBER) N_ORDERS
+FROM CLASSICMODELS.ORDERS
+GROUP BY 1;
